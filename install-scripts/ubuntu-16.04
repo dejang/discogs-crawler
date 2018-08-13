@@ -1,0 +1,17 @@
+#!/bin/sh
+sudo apt-get update
+
+sudo apt-get install libxcomposite-dev -y
+sudo apt-get install libxcursor1 -y
+sudo apt-get install libxi6 libgconf-2-4 -y
+sudo apt-get install libxtst6 -y
+sudo apt-get install libnss3-dev -y
+sudo apt-get install libcups -y
+sudo apt-get install libxss1
+sudo apt-get install libxrandr2
+sudo apt-get install libasound2 -y
+sudo apt-get install libpangocairo-1.0-0 -y
+sudo apt-get install libatk-1.0 -y
+sudo apt-get install libatk1.0-0 -y
+sudo apt-get install libatk-bridge2.0-0 -y
+sudo apt-get install libgtk-3-0 -y

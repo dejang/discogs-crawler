@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style.css">
+
+    <template id="entry">
+        <tr>
+            <td id="artist"></td>
+            <td id="album"></td>
+            <td id="tracklist"></td>
+        </tr>
+    </template>
+
+    <template id="release">
+        <div class="release">
+            <img class="release__thumb" src="" />
+            <div class="release__overlay">
+                <span class="release__title"></span>
+            </div>
+        </div>
+    </template>
+
+    <template id="release-detail">
+            <div class="detail">                
+                <a class="detail__title" target="_blank"></a>
+                <h4>Tracks</h4>                
+                <div class="tracks">
+
+                </div>
+
+            </div>
+    </template>
+    <template id="track">
+            <div>
+                <a href="#" id="beatport" target="_blank">Beatport</a>                
+                <a href="#" id="deejay" target="_blank">Deejay</a>                
+                <a href="#" id="decks" target="_blank">Decks</a>                
+                <h4 class="track__title"></h4>
+            </div>
+    </template>
+</head>
+
+<body>
+    <section id="search">
+        <div class="flex">
+            <div id="form-year-decade" class="form-section">
+                <label>Decade</label>
+                <select id="decade-input"></select>
+                <label>Year</label>
+                <select id="year-input"></select>
+            </div>
+            <div id="form-genre-style" class="form-section">
+                <label>Genre</label>
+                <select id="genre-input">
+                        <option value="electronic">Electronic</option>
+                    </select>
+                <label>Style</label>
+                <select id="style-input">
+                    <option value="Minimal">Minimal</option>
+                    <option value="Tech House">Tech House</option>
+                    <option value="House">House</option>
+                    <option value="Techno">Techno</option>
+                </select>
+            </div>
+
+            <span id="currentPage">Page: 1</span>
+
+            <button id="submit">Submit</button>
+
+            <div class="hud">
+                <div class="hud__section">
+                    <div><strong>Queue</strong></div>
+                    <div class="flex queue">
+                        <span id="ytb">Youtube: 0</span>
+                        <span id="dcg">Discogs: 0</span>
+                        <span id="btp">Beatport: 0</span>
+                        <span>Juno: 0</span>
+                        <span>Decks: 0</span>
+                        <span id="djy">Deejay: 0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="controls">
+            <button id="previous">Show previous</button>
+            <button id="next">Show next</button>
+        </div>
+    </section>
+    <div class="flex" style="position:relative; top: 100px">
+        <section id="content"></section>
+
+    </div>
+    <dialog id="detail">
+        <div class="tracks"></div>
+    </dialog>
+    <script src="./main.js" async defer></script>
+</body>
+
+</html>
