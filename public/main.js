@@ -1,6 +1,6 @@
 'use strict';
 
-const ws = new WebSocket('ws://localhost:3000/echo');
+const ws = new WebSocket(`ws://${window.location.host}:${window.location.port}/echo`);
 
 function getEmbddedVideo(url = '') {
     if (!url) {
