@@ -122,7 +122,6 @@ export class Discogs extends EventEmitter {
 const dcg = new Discogs();
 
 setInterval(() => {
-    console.log('executing');
     dcg.run()
 }, 10000);
 

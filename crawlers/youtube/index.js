@@ -6,7 +6,6 @@ let browser;
 
 class Youtube {
     async get(item) {
-        console.log('scrapping youtube')
         const page = await browser.newPage();
         const term = `${item.artist} ${item.trackTitle}`;
 
@@ -52,7 +51,7 @@ setTimeout(async() => {
         }
         const returned = await youtube.get(entry);
         process.send({ tracks: returned, size: queue.length });
-        setTimeout(run, 5000);
+        setTimeout(run, 1);
     }
 
     await run();

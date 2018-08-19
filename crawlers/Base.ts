@@ -84,7 +84,6 @@ class Crawler extends EventEmitter {
     async run() {
         this.started = true;
         if (this.queue.length === 0) {
-            console.log('idle')
             setTimeout(() => {
                 this.run()
             }, 10000)
@@ -118,9 +117,5 @@ crawler.on('discogs', (ev: any) => {
     stats.discogs = ev.size;
     crawler.emit('message', encodeMessage(stats, TYPE.CRAWLER_ADD));
 })
-
-Discogs.on('add', (ev) => {
-    console.log(ev);
-});
 
 export { crawler };
