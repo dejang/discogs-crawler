@@ -20,6 +20,7 @@ setTimeout(async() => {
     async function run() {
         const entry = queue.shift();
         if (!entry) {
+            console.log('Deejay idle');
             setTimeout(run, 30000);
             return;
         }

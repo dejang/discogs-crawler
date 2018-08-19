@@ -58,6 +58,7 @@ export class Discogs extends EventEmitter {
             queue.push(qItem);
             out.push(obj);
         }
+        console.log(`Added to queue. New size: ${queue.length}`)
         crawler.emit('discogs', { size: queue.length })
         return out;
     }
@@ -111,6 +112,7 @@ export class Discogs extends EventEmitter {
             crawler.emit('add', Object.assign({}, qItem, { crawler: QTYPES.DEEJAY }))
             tracks.push(track);
         }
+        console.log(`Discogs processed: ${release.id}`);
         return tracks;
     }
 

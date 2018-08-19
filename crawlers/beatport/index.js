@@ -20,6 +20,7 @@ setTimeout(async() => {
     async function run() {
         const entry = queue.shift();
         if (!entry) {
+            console.log('Beatport idle');
             setTimeout(run, 30000);
             return;
         }
