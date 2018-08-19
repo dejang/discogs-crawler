@@ -50,7 +50,7 @@ setTimeout(async() => {
             return;
         }
         const returned = await youtube.get(entry);
-        console.log(`Youtube processed: ${entry.artist} + ${entry.title}`)
+        console.log(`Youtube processed: ${entry.artist} + ${entry.trackTitle}`)
         process.send({ tracks: returned, size: queue.length });
         setTimeout(run, 1);
     }
