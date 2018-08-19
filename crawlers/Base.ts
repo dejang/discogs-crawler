@@ -77,7 +77,7 @@ class Crawler extends EventEmitter {
     }
 
     enqueue(item: QItem) {
-        console.log(`Adding to queue: ${item.catno} - ${item.artist} - ${item.trackTitle}`)
+        console.log(`Adding to ${item.crawler}: ${item.catno} - ${item.artist} - ${item.trackTitle}`)
         const child: any = children[item.crawler];
         child.send(item);
     }

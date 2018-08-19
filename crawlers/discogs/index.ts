@@ -112,7 +112,7 @@ export class Discogs extends EventEmitter {
             crawler.emit('add', Object.assign({}, qItem, { crawler: QTYPES.DEEJAY }))
             tracks.push(track);
         }
-        console.log(`Discogs processed: ${release.id}`);
+        console.log(`Discogs processed: ${release.id} - ${release.artist} - ${release.title}`);
         return tracks;
     }
 
