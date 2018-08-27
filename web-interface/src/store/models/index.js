@@ -139,7 +139,15 @@ export const sidebar = {
     },
     clear (state) {
       return Object.assign ({}, state, {
-        form: defaultSearch,
+        form: {
+          decade: '',
+          year: '',
+          style: '',
+          genre: 'Electronic',
+          format: '',
+          page: 1,
+          searchString: '',
+        },
       });
     },
   },
@@ -211,7 +219,7 @@ export const user = {
       4: 'fabrizio',
       5: 'nikita',
       6: 'teo',
-      7: 'gabi'
+      7: 'gabi',
     },
     token: undefined,
     discogsToken: '',
