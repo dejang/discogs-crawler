@@ -64,7 +64,7 @@ export const dialog = {
   effects: dispatch => ({
     async loadRelease (payload, state) {
       const release = await fetch (
-        `/releases/release?id=${payload.id}&token=${state.user.token}`
+        `/releases/release?id=${payload.id}&token=${state.user.token}&discogsToken=${state.user.discogsToken}`
       ).then (resp => resp.json ());
       dispatch.dialog.updateRelease (release);
       fetch (`/`);
@@ -169,7 +169,7 @@ export const sidebar = {
         `${acc}${currentValue}=${form[currentValue]}&`;
 
       let qString = keys.reduce (acc, '');
-      qString += `token=${state.user.token}`;
+      qString += `token=${state.user.token}&discogsToken=${state.user.discogsToken}`;
       const releases = await fetch (`/releases/search?${qString}`).then (r =>
         r.json ()
       );
@@ -213,6 +213,7 @@ export const user = {
       6: 'teo',
     },
     token: undefined,
+    discogsToken: '',
   },
   reducers: {
     typeKey (state, payload) {
@@ -223,6 +224,9 @@ export const user = {
     },
     startSesstion (state, sId) {
       return Object.assign ({}, state, {loggedIn: true, token: sId});
+    },
+    updateDiscogsToken (state, payload) {
+      return Object.assign ({}, state, {discogsToken: payload});
     },
   },
   effects: dispatch => ({
@@ -245,6 +249,8 @@ export const user = {
       if (!passed) {
         return;
       }
+      dispatch.sidebar.changeDecade ({key: 'decade', value: '2010'});
+      dispatch.sidebar.changeValue ({key: 'year', value: '2018'});
       await dispatch.sidebar.submit ();
     },
   }),

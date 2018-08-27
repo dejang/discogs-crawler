@@ -53,6 +53,7 @@ export class QItem {
     public artist = ''
     public catno = ''
     public trackTitle = ''
+    public token = ''
 }
 
 class Crawler extends EventEmitter {

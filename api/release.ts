@@ -34,7 +34,7 @@ router.get('/search', async function (req: any, res: any) {
         q: req.query.searchString,
     }
     try {
-        const releases: any = await dClient.search(params);
+        const releases: any = await dClient.search(params, req.query.discogsToken);
         for (let i = 0; i < releases.results.length; i++) {
             const viewed = await getView(req.query.token, releases.results[i].catno);
             releases.results[i].viewed = !!viewed;

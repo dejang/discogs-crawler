@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Checkbox, Form, Select} from 'semantic-ui-react';
+import {Button, Input, Form, Select} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 
 const decadeOptions = [
@@ -88,12 +88,22 @@ const Sidebar = props => {
         <Form.Field>
           <label>Format</label>
           <Select
-            placeholder="Select Page"
+            placeholder="Select Format"
             options={props.format}
             value={props.form.format}
             name="format"
             onChange={(ev, {name, value}) => {
               props.changeValue ({key: name, value});
+            }}
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Discogs Token</label>
+          <Input
+            placeholder="YOUR_DISCOGS_TOKEN_HERE"
+            value={props.discogsToken}
+            onChange={ev => {
+              props.changeToken (ev.target.value);
             }}
           />
         </Form.Field>
@@ -108,11 +118,12 @@ const mapState = state => {
   return state.sidebar;
 };
 
-const mapDispatch = ({sidebar}) => ({
+const mapDispatch = ({sidebar, user}) => ({
   submit: sidebar.submit,
   changeValue: sidebar.changeValue,
   changeDecade: sidebar.changeDecade,
   clear: sidebar.clear,
+  changeToken: user.updateDiscogsToken
 });
 
 export default connect (mapState, mapDispatch) (Sidebar);

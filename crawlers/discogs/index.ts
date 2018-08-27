@@ -4,7 +4,6 @@ import { getRelease, addRelease } from '../../db/release';
 import { Track, getTracks, addTrack } from '../../db/tracks';
 import { EventEmitter } from 'events';
 const DiscogsClient: any = require('disconnect').Client;
-var dis = new DiscogsClient({ userToken: 'mgELFZaMrUNKeCNUUQLQPvwnypfcjLlpTRDPpbOc' });
 
 const queue: Array<any> = [];
 
@@ -29,8 +28,9 @@ export class Discogs extends EventEmitter {
         this.run();
     }
 
-    async search(exploreCriteria: ExploreCriteria): Promise<Array<Release>> {
+    async search(exploreCriteria: ExploreCriteria, token: string): Promise<Array<Release>> {
         let releases = [];
+        const dis = new DiscogsClient({ userToken: token });
         releases = await dis.database().search(exploreCriteria);
         const out: any = [];
         for (let i = 0; i < releases.results.length; i++) {
@@ -53,7 +53,8 @@ export class Discogs extends EventEmitter {
             const qItem = new QItem()
             qItem.releaseId = r.id;
             qItem.crawler = QTYPES.DISCOGS;
-            qItem.catno = r.catno
+            qItem.catno = r.catno;
+            qItem.token = token;
             queue.push(qItem);
             out.push(obj);
         }
@@ -70,7 +71,7 @@ export class Discogs extends EventEmitter {
                 return tracks;
             }
         }
-
+        const dis = new DiscogsClient({ userToken: q.token });
         const rObj = await dis.database().getRelease(q.releaseId);
         release = new Release();
         const artist = rObj.artists.map((a: any) => a.name).join(' ')
