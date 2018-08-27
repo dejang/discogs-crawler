@@ -46,7 +46,7 @@ class Search extends React.Component {
     return (
       <div style={headerStyle}>
         <Menu attached="top">
-          <Menu.Menu position="right" compact>
+          <Menu.Menu position="right" compact="yes">
             <Menu.Item as="a" onClick={this.props.toggle}>
               <Icon name="filter" size="large" />
             </Menu.Item>
@@ -62,14 +62,17 @@ class Search extends React.Component {
                 type="text"
                 placeholder="Search releases..."
                 onChange={ev => {
-                  this.props.updateSearch ({key: 'searchString', value: ev.target.value});
+                  this.props.updateSearch ({
+                    key: 'searchString',
+                    value: ev.target.value,
+                  });
                 }}
               />
-              <i className="search link icon" onClick={this.props.submit}/>
+              <i className="search link icon" onClick={this.props.submit} />
             </div>
             <div className="results" />
           </div>
-          <Menu.Menu position="right" compact>
+          <Menu.Menu position="right" compact="yes">
             <Menu.Item as="a">
               <Image src="/assets/youtube.jpg" size="mini" />
               <Label color="red" style={labelStyle} floating>

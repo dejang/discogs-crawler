@@ -47,7 +47,6 @@ function getLinks (tracklist, currentIndex, discogs) {
 }
 
 function Dialog (props) {
-  console.log (props);
   return (
     <Modal open={props.open} size="fullscreen">
       <Modal.Header
@@ -63,7 +62,6 @@ function Dialog (props) {
           })}
         </List>
       </Modal.Content>
-      {console.log (props)}
       <Modal.Content>
         {getLinks (
           props.release.tracklist,

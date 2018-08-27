@@ -23,6 +23,8 @@ const Sidebar = props => {
     padding: 10,
     transition: 'width 0.1 ease-in',
     opacity: 0,
+    borderTop: 0,
+    boxShadow: 'lightgrey 2px 1px 100px',
   };
 
   if (props.open) {
@@ -47,7 +49,6 @@ const Sidebar = props => {
             }}
           />
         </Form.Field>
-        {console.log (props.years[0] && props.years[0].value)}
         <Form.Field>
           <label>Year</label>
           <Select
@@ -85,7 +86,7 @@ const Sidebar = props => {
           />
         </Form.Field>
         <Button type="submit" primary onClick={props.submit}>Submit</Button>
-        <Button type="clear" secondary>Clear</Button>
+        <Button type="clear" secondary onClick={props.clear}>Clear</Button>
       </Form>
     </div>
   );
@@ -99,6 +100,7 @@ const mapDispatch = ({sidebar}) => ({
   submit: sidebar.submit,
   changeValue: sidebar.changeValue,
   changeDecade: sidebar.changeDecade,
+  clear: sidebar.clear,
 });
 
 export default connect (mapState, mapDispatch) (Sidebar);

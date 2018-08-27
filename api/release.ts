@@ -4,7 +4,7 @@ import express from 'express';
 import dClient from '../crawlers/discogs';
 import { ExploreCriteria } from '../crawlers/Base';
 import { getTracks } from '../db/tracks';
-import { addView } from '../db/viewed';
+import { addView, getView } from '../db/viewed';
 
 const router = express.Router();
 
@@ -16,7 +16,7 @@ router.get('/', async function (req: any, res: any) {
 
 router.get('/release', async function (req: any, res: any) {
     const id = req.query.id;
-    await addView('1', id);
+    await addView(req.query.token, id);
     const release = await getRelease(id);
     release.tracklist = await getTracks(id);
 
@@ -34,7 +34,11 @@ router.get('/search', async function (req: any, res: any) {
         q: req.query.searchString,
     }
     try {
-        const releases = await dClient.search(params);
+        const releases: any = await dClient.search(params);
+        for (let i = 0; i < releases.results.length; i++) {
+            const viewed = await getView(req.query.token, releases.results[i].catno);
+            releases.results[i].viewed = !!viewed;
+        }
         res.json(releases);
     } catch (e) {
         res.status(500)

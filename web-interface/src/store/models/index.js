@@ -29,7 +29,7 @@ export const dialog = {
     openState (state) {
       return Object.assign ({}, state, {open: true});
     },
-    closeDialog (state) {
+    close (state) {
       return Object.assign ({}, state, {
         open: false,
         videoId: '',
@@ -62,11 +62,12 @@ export const dialog = {
     },
   },
   effects: dispatch => ({
-    async loadRelease (payload) {
+    async loadRelease (payload, state) {
       const release = await fetch (
-        `/releases/release?id=${payload.id}`
+        `/releases/release?id=${payload.id}&token=${state.user.token}`
       ).then (resp => resp.json ());
       dispatch.dialog.updateRelease (release);
+      fetch (`/`);
     },
     async openDialog (payload) {
       await dispatch.dialog.loadRelease ({id: payload.id});
@@ -81,6 +82,10 @@ export const dialog = {
       dispatch.dialog.prev ();
       dispatch.dialog.playCurrent ();
     },
+    async closeDialog() {
+      dispatch.dialog.close();
+      await dispatch.sidebar.submit();
+    }
   }),
 };
 
@@ -126,6 +131,19 @@ export const sidebar = {
       const form = Object.assign ({}, state.form, {page: pagination.page});
       return Object.assign ({}, state, {pages: out, form});
     },
+    clear (state) {
+      return Object.assign ({}, state, {
+        form: {
+          decade: '',
+          year: '',
+          style: '',
+          genre: 'Electronic',
+          format: 'Vinyl',
+          page: 1,
+          searchString: '',
+        },
+      });
+    },
   },
   effects: dispatch => ({
     changeDecade (payload, state) {
@@ -152,7 +170,8 @@ export const sidebar = {
       const acc = (acc, currentValue) =>
         `${acc}${currentValue}=${form[currentValue]}&`;
 
-      const qString = keys.reduce (acc, '');
+      let qString = keys.reduce (acc, '');
+      qString += `token=${state.user.token}`;
       const releases = await fetch (`/releases/search?${qString}`).then (r =>
         r.json ()
       );
@@ -187,6 +206,12 @@ export const user = {
       username: '',
       password: '',
     },
+    users: {
+      1: 'dejan',
+      2: 'luis',
+      3: 'zoli',
+    },
+    token: undefined,
   },
   reducers: {
     typeKey (state, payload) {
@@ -195,21 +220,30 @@ export const user = {
       });
       return Object.assign ({}, state, {credentials});
     },
-    startSesstion (state) {
-      return Object.assign ({}, state, {loggedIn: true});
+    startSesstion (state, sId) {
+      return Object.assign ({}, state, {loggedIn: true, token: sId});
     },
   },
   effects: dispatch => ({
     async login (payload, state) {
       const {credentials} = state.user;
-      const passed =
-        credentials.username === 'guest' && credentials.password === 'guest';
+      if (credentials.username !== credentials.password) {
+        return;
+      }
+
+      let passed = false;
+      const sIds = Object.keys (state.user.users);
+      sIds.forEach (k => {
+        if (state.user.users[k] === credentials.username) {
+          passed = true;
+          dispatch.user.startSesstion (k);
+          return;
+        }
+      });
 
       if (!passed) {
         return;
       }
-
-      dispatch.user.startSesstion ();
       await dispatch.sidebar.submit ();
     },
   }),
