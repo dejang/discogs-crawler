@@ -214,6 +214,9 @@ export const user = {
       1: 'dejan',
       2: 'luis',
       3: 'zoli',
+      4: 'fabrizio',
+      5: 'nikita',
+      6: 'teo'
     },
     token: undefined,
   },
