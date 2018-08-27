@@ -32,7 +32,6 @@ export class Discogs extends EventEmitter {
     async search(exploreCriteria: ExploreCriteria): Promise<Array<Release>> {
         let releases = [];
         releases = await dis.database().search(exploreCriteria);
-
         const out: any = [];
         for (let i = 0; i < releases.results.length; i++) {
             const r = releases.results[i];
@@ -60,7 +59,7 @@ export class Discogs extends EventEmitter {
         }
         console.log(`Added to queue. New size: ${queue.length}`)
         crawler.emit('discogs', { size: queue.length })
-        return out;
+        return releases;
     }
 
     async processItem(q: QItem) {

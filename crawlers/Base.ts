@@ -10,7 +10,7 @@ export interface ExploreCriteria {
     style?: string,
     format?: string,
     genre?: string,
-    searchString?: string,
+    q?: string,
     page?: number,
 }
 
@@ -24,11 +24,6 @@ export class Release {
     public thumb = ''
     public discogsUrl = ''
     public viewed = false
-}
-
-export interface IBase {
-    search: Function,
-    getRelease: Function
 }
 
 export const QTYPES = {

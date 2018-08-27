@@ -30,11 +30,16 @@ router.get('/search', async function (req: any, res: any) {
         style: req.query.style,
         format: req.query.format,
         genre: req.query.genre,
-        page: req.query.page
+        page: req.query.page,
+        q: req.query.searchString,
     }
-
-    const releases = await dClient.search(params);
-    res.json(releases);    
+    try {
+        const releases = await dClient.search(params);
+        res.json(releases);
+    } catch (e) {
+        res.status(500)
+        res.render(e.message);
+    }
 })
 
 export default router;
