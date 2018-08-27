@@ -211,6 +211,7 @@ export const user = {
       4: 'fabrizio',
       5: 'nikita',
       6: 'teo',
+      7: 'gabi'
     },
     token: undefined,
     discogsToken: '',
