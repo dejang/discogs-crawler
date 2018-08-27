@@ -90,7 +90,7 @@ export const sidebar = {
     form: {
       decade: '',
       year: '',
-      style: 'Minimal',
+      style: '',
       genre: 'Electronic',
       format: 'Vinyl',
       page: 1,
@@ -183,10 +183,34 @@ export const sidebar = {
 export const user = {
   state: {
     loggedIn: false,
+    credentials: {
+      username: '',
+      password: '',
+    },
   },
   reducers: {
-    login (state, payload) {
+    typeKey (state, payload) {
+      const credentials = Object.assign ({}, state.credentials, {
+        [payload.key]: payload.value,
+      });
+      return Object.assign ({}, state, {credentials});
+    },
+    startSesstion (state) {
       return Object.assign ({}, state, {loggedIn: true});
     },
   },
+  effects: dispatch => ({
+    async login (payload, state) {
+      const {credentials} = state.user;
+      const passed =
+        credentials.username === 'guest' && credentials.password === 'guest';
+
+      if (!passed) {
+        return;
+      }
+
+      dispatch.user.startSesstion ();
+      await dispatch.sidebar.submit ();
+    },
+  }),
 };

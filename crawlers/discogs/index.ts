@@ -20,10 +20,10 @@ export class Discogs extends EventEmitter {
             crawler.emit('discogs', { tracks, size: queue.length });
         } catch (e) {
             console.log(e.message);
-            if (item.try) {
+            if (item.try > 3) {
                 return;
             }
-            item.try = 1;
+            item.try = item.try ? ++item.try : 1;
             setTimeout(() => queue.push(item), 120000);
         }
         this.run();
