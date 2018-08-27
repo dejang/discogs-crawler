@@ -89,18 +89,20 @@ export const dialog = {
   }),
 };
 
+const defaultSearch = {
+  decade: '2010',
+  year: '2018',
+  style: 'Minimal',
+  genre: 'Electronic',
+  format: 'Vinyl',
+  page: 1,
+  searchString: '',
+};
+
 export const sidebar = {
   state: {
     open: false,
-    form: {
-      decade: '',
-      year: '',
-      style: '',
-      genre: 'Electronic',
-      format: '',
-      page: 1,
-      searchString: '',
-    },
+    form: defaultSearch,
     years: [],
     styles: [
       {key: 'Minimal', value: 'Minimal', text: 'Minimal'},
@@ -137,15 +139,7 @@ export const sidebar = {
     },
     clear (state) {
       return Object.assign ({}, state, {
-        form: {
-          decade: '',
-          year: '',
-          style: '',
-          genre: 'Electronic',
-          format: '',
-          page: 1,
-          searchString: '',
-        },
+        form: defaultSearch,
       });
     },
   },
@@ -216,7 +210,7 @@ export const user = {
       3: 'zoli',
       4: 'fabrizio',
       5: 'nikita',
-      6: 'teo'
+      6: 'teo',
     },
     token: undefined,
   },
