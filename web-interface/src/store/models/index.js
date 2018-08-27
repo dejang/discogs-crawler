@@ -82,10 +82,10 @@ export const dialog = {
       dispatch.dialog.prev ();
       dispatch.dialog.playCurrent ();
     },
-    async closeDialog() {
-      dispatch.dialog.close();
-      await dispatch.sidebar.submit();
-    }
+    async closeDialog () {
+      dispatch.dialog.close ();
+      await dispatch.sidebar.submit ();
+    },
   }),
 };
 
@@ -97,7 +97,7 @@ export const sidebar = {
       year: '',
       style: '',
       genre: 'Electronic',
-      format: 'Vinyl',
+      format: '',
       page: 1,
       searchString: '',
     },
@@ -109,6 +109,10 @@ export const sidebar = {
       {key: 'Tech House', value: 'Tech House', text: 'Tech House'},
     ],
     pages: [],
+    format: [
+      {key: 'Vinyl', text: 'Vinyl', value: 'Vinyl'},
+      {key: 'File', text: 'File', value: 'File'},
+    ],
   },
   reducers: {
     changeValue (state, payload) {
@@ -138,7 +142,7 @@ export const sidebar = {
           year: '',
           style: '',
           genre: 'Electronic',
-          format: 'Vinyl',
+          format: '',
           page: 1,
           searchString: '',
         },

@@ -85,6 +85,18 @@ const Sidebar = props => {
             }}
           />
         </Form.Field>
+        <Form.Field>
+          <label>Format</label>
+          <Select
+            placeholder="Select Page"
+            options={props.format}
+            value={props.form.format}
+            name="format"
+            onChange={(ev, {name, value}) => {
+              props.changeValue ({key: name, value});
+            }}
+          />
+        </Form.Field>
         <Button type="submit" primary onClick={props.submit}>Submit</Button>
         <Button type="clear" secondary onClick={props.clear}>Clear</Button>
       </Form>
