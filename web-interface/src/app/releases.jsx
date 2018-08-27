@@ -8,12 +8,12 @@ const getColor = r => {
     return 'green';
   }
 
-  if (r.viewed) {
-    return 'yellow';
-  }
-
   if (r.user_data.in_wantlist) {
     return 'red';
+  }
+
+  if (r.viewed) {
+    return 'yellow';
   }
 };
 
